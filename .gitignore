@@ -1,0 +1,6 @@
+corewar
+B-CPE-200_corewar_champions/
+B-CPE-200_corewar_binaries/
+*.o
+*.a
+.idea
