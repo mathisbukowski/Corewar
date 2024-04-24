@@ -17,6 +17,7 @@ typedef struct champion_s {
     int live;
     int last_live;
     int prog_size;
+    char *path;
     char *name;
     char *comment;
     char *prog;
@@ -34,14 +35,14 @@ typedef struct vm_s {
 } vm_t;
 
 typedef struct corewar_s {
-    int fd1;
-    int fd2;
+    int *fd;
     vm_t *vm;
 } corewar_t;
 
 void print_usage(void);
-corewar_t *init_corewar(void);
+corewar_t *init_corewar(char **av);
 void free_corewar(corewar_t *corewar);
 int check_args(char **av, corewar_t *corewar);
 int check_dump(corewar_t *corewar, char **av);
+int check_champion(corewar_t *corewar, char **av);
 #endif //COREWAR_COREWAR_H
