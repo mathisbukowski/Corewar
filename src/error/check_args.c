@@ -5,26 +5,30 @@
 ** check_argv.c
 */
 
-
 #include <fcntl.h>
 #include "my.h"
 #include "corewar.h"
 
-void open_file(char **av, corewar_t *corewar, int i)
+int get_extension(char *av)
 {
-    if (corewar->fd1 < 0)
-        corewar->fd1 = open(av[i], O_RDONLY);
-    else if (corewar->fd2 < 0)
-        corewar->fd2 = open(av[i], O_RDONLY);
+    char *ext = my_strstr(av, ".cor");
+
+    if (ext == NULL)
+        return 1;
+    return 0;
 }
 
 int check_args(char **av, corewar_t *corewar)
 {
-    corewar->fd1 = -1;
-    corewar->fd2 = -1;
-    for (int i = 1; av[i]; i++)
-        open_file(av, corewar, i);
-    if (corewar->fd1 <= 0 || corewar->fd2 <= 0)
-        return 84;
+    int j = 0;
+
+    for (int i = 1; av[i]; i++) {
+        if (!get_extension(av[i]) == 0) {
+            corewar->fd[j] = open(av[i], O_RDONLY);
+        }
+        if (corewar->fd[j] == -1)
+            continue;
+        j++;
+    }
     return 0;
 }
