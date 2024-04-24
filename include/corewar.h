@@ -43,4 +43,5 @@ void print_usage(void);
 corewar_t *init_corewar(void);
 void free_corewar(corewar_t *corewar);
 int check_args(char **av, corewar_t *corewar);
+int check_dump(corewar_t *corewar, char **av);
 #endif //COREWAR_COREWAR_H
