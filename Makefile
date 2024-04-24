@@ -10,6 +10,7 @@ SRC = src/main.c \
 		src/utils/init_struct.c \
 		src/utils/free_struct.c \
 		src/utils/check_dump.c \
+		src/error/check_champions.c \
 		src/error/check_args.c \
 
 NAME = corewar
