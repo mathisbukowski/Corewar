@@ -16,9 +16,9 @@ int main(int ac, char **av)
         print_usage();
         return 0;
     }
-    if (ac != 3)
-        return 84;
     if (check_args(av, corewar))
+        return 84;
+    if (check_dump(corewar, av))
         return 84;
     free_corewar(corewar);
     return 0;
