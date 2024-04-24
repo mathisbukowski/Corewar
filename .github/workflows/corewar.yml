@@ -96,7 +96,7 @@ jobs:
 
   check_repo_size:
     runs-on: ubuntu-latest
-    if: github.repository != 'git@github.com:EpitechPromo2028/B-CPE-200-LIL-2-1-corewar-mathis.bukowski.git'
+    if: github.event_name == 'push' && github.repository != 'git@github.com:EpitechPromo2028/B-CPE-200-LIL-2-1-corewar-mathis.bukowski.git'
     steps:
       - name: Check size of the repository
         env:
