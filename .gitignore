@@ -4,3 +4,4 @@ B-CPE-200_corewar_binaries/
 *.o
 *.a
 .idea
+vgcore.*
