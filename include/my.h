@@ -45,4 +45,5 @@ void *my_memcpy(void *dest, const void *src, size_t n);
 int my_atoi(const char *str);
 int my_strchr(char *str, char c);
 char *my_itoa(int num);
+void *my_memset(void *ptr, int size, size_t n);
 #endif

@@ -9,15 +9,32 @@
 #include <unistd.h>
 #include "corewar.h"
 
+void free_champions(champion_t *champion)
+{
+    champion_t *current = champion;
+    champion_t *next = NULL;
+
+    while (current != NULL) {
+        next = current->next;
+        free(current->infos);
+        free(current->instructs);
+        free(current->name);
+        free(current->comment);
+        free(current->prog);
+        free(current);
+        current = next;
+    }
+}
+
 void free_corewar(corewar_t *corewar)
 {
-    free(corewar->vm->mem);
+    if (corewar == NULL)
+        return;
     free(corewar->fd);
-    for (int i = 0; i < corewar->vm->nb_champs; i++) {
-        free(corewar->vm->champs[i]->prog);
-        free(corewar->vm->champs[i]);
+    if (corewar->arena != NULL) {
+        free(corewar->arena->memory);
+        free(corewar->arena);
     }
-    free(corewar->vm->champs);
-    free(corewar->vm);
+    free_champions(corewar->champs);
     free(corewar);
 }

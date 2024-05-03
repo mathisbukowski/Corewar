@@ -50,6 +50,7 @@ SRC =   my_compute_power_rec.c \
 	my_atoi.c \
 	my_strchr.c \
 	my_itoa.c \
+	my_memset.c \
 
 OBJ = $(SRC:.c=.o)
 
