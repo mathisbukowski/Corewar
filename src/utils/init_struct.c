@@ -48,7 +48,6 @@ corewar_t *init_corewar(char **av)
     corewar->vm->last_live = 0;
     corewar->vm->nb_champs = get_nb_champs(av);
     corewar->fd = malloc(sizeof(int) * corewar->vm->nb_champs + 1);
-    corewar->fd[0] = -1;
     init_champs_struct(corewar);
     corewar->vm->mem = malloc(sizeof(char) * MEM_SIZE);
     return corewar;
