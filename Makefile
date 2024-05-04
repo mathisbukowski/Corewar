@@ -12,6 +12,7 @@ SRC = src/main.c \
 		src/utils/check_dump.c \
 		src/error/check_champions.c \
 		src/error/check_args.c \
+		src/instructions/load_inst.c \
 
 NAME = corewar
 
