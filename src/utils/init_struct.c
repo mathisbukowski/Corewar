@@ -45,22 +45,21 @@ champion_t *init_champion(void)
     return champion;
 }
 
-arena_t *init_arena(int size, int cycle_to_die)
+arena_t *init_arena(int cycle_to_die)
 {
     arena_t *arena = malloc(sizeof(arena_t));
 
     if (arena == NULL)
         return NULL;
-    arena->size = size;
     arena->cycle_to_die = cycle_to_die;
     arena->live = 0;
     arena->last_live = 0;
-    arena->memory = malloc(size * sizeof(unsigned char));
+    arena->memory = malloc(MEM_SIZE * sizeof(unsigned char));
     if (arena->memory == NULL) {
         free(arena);
         return NULL;
     }
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < MEM_SIZE; i++)
         arena->memory[i] = 0;
     return arena;
 }
@@ -76,7 +75,7 @@ corewar_t *init_corewar(char **av)
     corewar->nb_champs = check_args(av, corewar);
     corewar->fd = malloc(corewar->nb_champs * sizeof(int));
     corewar->champs = NULL;
-    corewar->arena = init_arena(MEM_SIZE, CYCLE_TO_DIE);
+    corewar->arena = init_arena(CYCLE_TO_DIE);
     if (corewar->arena == NULL || corewar->fd == NULL) {
         free_corewar(corewar);
         return NULL;

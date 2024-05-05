@@ -49,7 +49,6 @@ typedef struct champion_s {
 
 typedef struct arena_s {
     unsigned char *memory;
-    int size;
     int cycle_to_die;
     int live;
     int last_live;
