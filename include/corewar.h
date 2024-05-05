@@ -49,7 +49,6 @@ typedef struct champion_s {
 
 typedef struct arena_s {
     unsigned char *memory;
-    int size;
     int cycle_to_die;
     int live;
     int last_live;
@@ -119,4 +118,24 @@ int lld_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
 **/
 int lldi_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
 
+/**
+ *  @brief Exec the st instruction (store)
+ *  This function stores the first param value into the second
+ *  @param instr Pointer to the structure of instructions.
+ *  @param champ Pointer to the entity in exec.
+ *  @param corewar Pointer to the global structure.
+ *  @return Return 0 if the exec is all good else return 1.
+**/
+int st_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
+
+/**
+ *  @brief Exec the sti instruction (store index)
+ *  This function copies the content of the first param (register)
+ *  into a new address made off the two others params
+ *  @param instr Pointer to the structure of instructions.
+ *  @param champ Pointer to the entity in exec.
+ *  @param corewar Pointer to the global structure.
+ *  @return Return 0 if the exec is all good else return 1.
+**/
+int sti_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
 #endif //COREWAR_COREWAR_H
