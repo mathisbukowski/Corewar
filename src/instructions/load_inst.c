@@ -9,10 +9,14 @@
 
 int ld_command(instruction_t *instr, champion_t *champ, corewar_t *corewar)
 {
-    int value = (instr->types[0] == 'r') ?
-    champ->reg[instr->args[0]] : instr->args[0];
-    int address = (champ->pc + (value % IDX_MOD)) % MEM_SIZE;
+    int value;
+    int address;
 
+    if (!instr || !champ || !corewar)
+        return -1;
+    value = (instr->types[0] == 'r') ?
+    champ->reg[instr->args[0]] : instr->args[0];
+    address = (champ->pc + (value % IDX_MOD)) % MEM_SIZE;
     if (address < 0)
         address += MEM_SIZE;
     my_memcpy(&champ->reg[instr->args[1]],
@@ -23,16 +27,17 @@ int ld_command(instruction_t *instr, champion_t *champ, corewar_t *corewar)
 
 int ldi_command(instruction_t *instr, champion_t *champ, corewar_t *corewar)
 {
-    int a = (instr->types[0] == 'r' ?
-    champ->reg[instr->args[0]] : instr->args[0]);
-    int b = (instr->types[1] == 'r' ?
-    champ->reg[instr->args[1]] : instr->args[1]);
-    int address = (champ->pc + (a % IDX_MOD)) % MEM_SIZE;
+    int address;
+    int a;
+    int b;
     int mid;
     int fin_add;
 
-    if (address < 0)
-        address += MEM_SIZE;
+    if (!instr || !champ || !corewar)
+        return -1;
+    a = (instr->types[0] == 'r' ? champ->reg[instr->args[0]] : instr->args[0]);
+    b = (instr->types[1] == 'r' ? champ->reg[instr->args[1]] : instr->args[1]);
+    address = (champ->pc + (a % IDX_MOD)) % MEM_SIZE;
     my_memcpy(&mid, &corewar->arena->memory[address], IND_SIZE);
     fin_add = (champ->pc + ((mid + b) % IDX_MOD)) % MEM_SIZE;
     if (fin_add < 0)
@@ -45,10 +50,14 @@ int ldi_command(instruction_t *instr, champion_t *champ, corewar_t *corewar)
 
 int lld_command(instruction_t *instr, champion_t *champ, corewar_t *corewar)
 {
-    int value = (instr->types[0] == 'r') ?
-    champ->reg[instr->args[0]] : instr->args[0];
-    int address = (champ->pc + value) % MEM_SIZE;
+    int value;
+    int address;
 
+    if (!instr || !champ || !corewar)
+        return -1;
+    value = (instr->types[0] == 'r') ?
+    champ->reg[instr->args[0]] : instr->args[0];
+    address = (champ->pc + value) % MEM_SIZE;
     if (address < 0)
         address += MEM_SIZE;
     my_memcpy(&champ->reg[instr->args[1]],
@@ -59,16 +68,17 @@ int lld_command(instruction_t *instr, champion_t *champ, corewar_t *corewar)
 
 int lldi_command(instruction_t *instr, champion_t *champ, corewar_t *corewar)
 {
-    int a = (instr->types[0] == 'r' ?
-    champ->reg[instr->args[0]] : instr->args[0]);
-    int b = (instr->types[1] == 'r' ?
-    champ->reg[instr->args[1]] : instr->args[1]);
-    int address = (champ->pc + a) % MEM_SIZE;
+    int address;
+    int a;
+    int b;
     int mid;
     int fin_add;
 
-    if (address < 0)
-        address += MEM_SIZE;
+    if (!instr || !champ || !corewar)
+        return -1;
+    a = (instr->types[0] == 'r' ? champ->reg[instr->args[0]] : instr->args[0]);
+    b = (instr->types[1] == 'r' ? champ->reg[instr->args[1]] : instr->args[1]);
+    address = (champ->pc + a) % MEM_SIZE;
     my_memcpy(&mid, &corewar->arena->memory[address], IND_SIZE);
     fin_add = (champ->pc + (mid + b)) % MEM_SIZE;
     if (fin_add < 0)
