@@ -31,6 +31,10 @@ typedef struct info_champ_s {
     int adress_impose;
 } info_champ_t;
 
+typedef struct fork_s {
+
+};
+
 typedef struct champion_s {
     int id;
     char *name;
@@ -138,4 +142,6 @@ int st_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
  *  @return Return 0 if the exec is all good else return 1.
 **/
 int sti_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
+
+int add_champion(corewar_t *corewar, champion_t *new_champ);
 #endif //COREWAR_COREWAR_H
