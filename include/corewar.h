@@ -31,10 +31,6 @@ typedef struct info_champ_s {
     int adress_impose;
 } info_champ_t;
 
-typedef struct fork_s {
-
-};
-
 typedef struct champion_s {
     int id;
     char *name;
