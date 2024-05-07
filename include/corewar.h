@@ -140,4 +140,5 @@ int st_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
 int sti_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
 
 int add_champion(corewar_t *corewar, champion_t *new_champ);
+int check_arguments(instruction_t *instr);
 #endif //COREWAR_COREWAR_H
