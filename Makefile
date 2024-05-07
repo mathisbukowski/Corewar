@@ -20,6 +20,7 @@ SRC = src/main.c \
 		src/instructions/check_arguments.c \
 		src/instructions/aff_inst.c \
 		src/champion/add_champion.c \
+		src/file/get_file_data.c \
 
 NAME = corewar
 
