@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2024
-** corewar
+** corewar-dev
 ** File description:
 ** aff_inst.c
 */
