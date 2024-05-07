@@ -16,6 +16,8 @@ SRC = src/main.c \
 		src/instructions/store_inst.c \
 		src/instructions/fork_inst.c \
 		src/instructions/add_inst.c \
+		src/instructions/logical_inst.c \
+		src/instructions/check_arguments.c \
 		src/champion/add_champion.c \
 
 NAME = corewar
