@@ -22,6 +22,8 @@ int main(int ac, char **av)
         return 84;
     if (check_champion(corewar, av))
         return 84;
+    if (get_file_data(av[1], corewar, 0))
+        return 84;
     free_corewar(corewar);
     return 0;
 }
