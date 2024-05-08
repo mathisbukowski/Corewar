@@ -141,4 +141,14 @@ int sti_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
 
 int add_champion(corewar_t *corewar, champion_t *new_champ);
 int check_arguments(instruction_t *instr);
+
+/**
+ * @brief Open a file .cor read the header and
+ * read the instructions
+ * @param file char * with the path of the file
+ * @param corewar  pointer to the corewar structure
+ * @param i int with the index of the champion
+ * @return
+ */
+int get_file_data(char *file, corewar_t *corewar, int i);
 #endif //COREWAR_COREWAR_H
