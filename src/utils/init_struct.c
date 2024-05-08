@@ -72,8 +72,8 @@ corewar_t *init_corewar(char **av)
         return NULL;
     corewar->dump = check_dump(corewar, av);
     corewar->cycle = 0;
-    corewar->nb_champs = check_args(av, corewar);
     corewar->fd = malloc(corewar->nb_champs * sizeof(int));
+    corewar->nb_champs = check_args(av, corewar);
     corewar->champs = NULL;
     corewar->arena = init_arena(CYCLE_TO_DIE);
     if (corewar->arena == NULL || corewar->fd == NULL) {
