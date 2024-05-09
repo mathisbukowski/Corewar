@@ -6,6 +6,7 @@
 ##
 
 SRC = src/main.c \
+		src/op.c \
 		src/utils/print_usage.c \
 		src/utils/init_struct.c \
 		src/utils/free_struct.c \
