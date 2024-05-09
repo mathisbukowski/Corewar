@@ -9,11 +9,15 @@
 
 int aff_command(instruction_t *instr, champion_t *champ, corewar_t *corewar)
 {
-    int reg = instr->args[0];
-    int value = champ->reg[reg - 1];
+    int reg_value;
+    char output_aff;
 
     if (!instr || !champ || !corewar)
         return -1;
-    my_putchar(value % 256);
+    if (instr->types[0] != 'r' || instr->args[0] >= REG_NUMBER)
+        return -1;
+    reg_value = champ->reg[instr->args[0]];
+    output_aff = reg_value % 256;
+    my_putchar(output_aff);
     return 0;
 }
