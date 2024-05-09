@@ -150,5 +150,5 @@ int check_arguments(instruction_t *instr);
  * @param i int with the index of the champion
  * @return
  */
-int get_file_data(char *file, corewar_t *corewar, int i);
+int get_file_data(char *file, corewar_t *corewar);
 #endif //COREWAR_COREWAR_H
