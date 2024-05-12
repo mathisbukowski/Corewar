@@ -22,6 +22,9 @@ SRC = src/main.c \
 		src/instructions/aff_inst.c \
 		src/champion/add_champion.c \
 		src/file/get_file_data.c \
+		src/file/get_coding_byte.c \
+
+OBJ = $(SRC:.c=.o)
 
 NAME = corewar
 
@@ -31,8 +34,7 @@ CFLAGS = -g -I./include -Wall -Wextra
 
 all : $(NAME)
 
-$(NAME) :
-	if [ ! -f "lib/my/libmy.a" ]; then make -C lib/my; fi
+$(NAME) : $(OBJ)
 	gcc $(CFLAGS) $(SRC) -o $(NAME) $(LIB)
 
 clean:
