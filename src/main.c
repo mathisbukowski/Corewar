@@ -8,22 +8,42 @@
 #include "corewar.h"
 #include "my.h"
 
-int main(int ac, char **av)
+int parse_arguments(int argc, char **argv, corewar_t *corewar)
 {
-    corewar_t *corewar = init_corewar(av);
+    corewar->nb_champs = check_args(argv, corewar);
+    if (corewar->nb_champs < 1 || corewar->nb_champs > 4)
+        return 84;
+    if (check_dump(corewar, argv))
+        return 84;
+    if (check_champion(corewar, argv))
+        return 84;
+    return 0;
+}
 
-    if (ac == 2 && my_strcmp(av[1], "-h") == 0) {
+int load_champions(corewar_t *corewar, char **argv)
+{
+    if (get_file_data(corewar) != 0)
+        return 84;
+    return 0;
+}
+
+int main(int argc, char **argv)
+{
+    corewar_t *corewar = init_corewar(argv);
+
+    if (argc == 2 && my_strcmp(argv[1], "-h") == 0) {
         print_usage();
+        free_corewar(corewar);
         return 0;
     }
-    if (check_args(av, corewar))
+    if (parse_arguments(argc, argv, corewar) != 0) {
+        free_corewar(corewar);
         return 84;
-    if (check_dump(corewar, av))
+    }
+    if (load_champions(corewar, argv) != 0) {
+        free_corewar(corewar);
         return 84;
-    if (check_champion(corewar, av))
-        return 84;
-    if (get_file_data(av[1], corewar))
-        return 84;
+    }
     free_corewar(corewar);
     return 0;
 }
