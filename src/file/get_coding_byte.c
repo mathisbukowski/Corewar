@@ -16,7 +16,7 @@
 void get_coding_byte(char coding_byte, instruction_t *instr)
 {
     u_int8_t type_bits;
-    const char type_map[4] = {0, T_REG, T_DIR, T_IND};
+    char const type_map[4] = {0, 'r', 'd', 'i'};
     int index;
 
     for (int i = 0; i < 3; i++) {
@@ -24,4 +24,11 @@ void get_coding_byte(char coding_byte, instruction_t *instr)
         index = type_bits >> 6;
         instr->types[i] = type_map[index];
     }
+}
+
+int has_coding_byte(int mnemonic)
+{
+    if (mnemonic == 1 || mnemonic == 9 || mnemonic == 12 || mnemonic == 15)
+        return 1;
+    return 0;
 }

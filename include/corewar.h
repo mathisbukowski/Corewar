@@ -148,6 +148,7 @@ int check_arguments(instruction_t *instr);
  * @return
  */
 int get_file_data(corewar_t *corewar);
+int get_instructions(int fd, champion_t *new, corewar_t *corewar);
 void get_coding_byte(char coding_byte, instruction_t *instr);
 void free_champion(champion_t *champion);
 #endif //COREWAR_COREWAR_H

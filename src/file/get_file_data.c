@@ -48,6 +48,7 @@ int read_header(int fd, header_t *header, champion_t *champ)
     champ->prog_size = swap_endian(header->prog_size);
     champ->comment = my_strdup(header->comment);
     champ->name = my_strdup(header->prog_name);
+    printf("Name : %s \nComment : %s\nProg Size: %d \n", champ->name, champ->comment, champ->prog_size);
     return 0;
 }
 
@@ -55,6 +56,8 @@ static int get_data(int fd, header_t *header, champion_t *champ,
     corewar_t *corewar)
 {
     if (read_header(fd, header, champ) == 84)
+        return 84;
+    if (get_instructions(fd, champ, corewar) == 84)
         return 84;
     return 0;
 }

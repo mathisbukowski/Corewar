@@ -11,11 +11,20 @@
 
 void free_champion(champion_t *champion)
 {
-    free(champion->infos);
-    free(champion->instructs);
-    free(champion->name);
-    free(champion->comment);
+    if (champion->infos)
+        free(champion->infos);
+    if (champion->instructs)
+        free(champion->instructs);
+    if (champion->name)
+        free(champion->name);
+    if (champion->comment)
+        free(champion->comment);
+    champion->infos = NULL;
+    champion->instructs = NULL;
+    champion->name = NULL;
+    champion->comment = NULL;
     free(champion);
+    champion = NULL;
 }
 
 void free_champions(champion_t *champion)
@@ -25,11 +34,7 @@ void free_champions(champion_t *champion)
 
     while (current != NULL) {
         next = current->next;
-        free(current->infos);
-        free(current->instructs);
-        free(current->name);
-        free(current->comment);
-        free(current);
+        free_champion(current);
         current = next;
     }
 }
@@ -43,6 +48,5 @@ void free_corewar(corewar_t *corewar)
         free(corewar->arena->memory);
         free(corewar->arena);
     }
-    free_champions(corewar->champs);
     free(corewar);
 }

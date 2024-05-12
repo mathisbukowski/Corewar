@@ -39,7 +39,7 @@ champion_t *init_champion(void)
     if (champion == NULL)
         return NULL;
     my_memset(champion, 0, sizeof(champion_t));
-    champion->infos = malloc(sizeof(info_champ_t));
+    champion->infos = init_info_champ();
     champion->instructs = NULL;
     champion->next = NULL;
     return champion;
