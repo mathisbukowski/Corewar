@@ -6,6 +6,7 @@
 */
 
 #include <fcntl.h>
+#include <stdio.h>
 #include <unistd.h>
 #include "corewar.h"
 #include "op.h"
@@ -31,9 +32,8 @@ int swap_endian(int value)
     return result;
 }
 
-int open_file(char *file, header_t *header)
+int read_header(int fd, header_t *header, champion_t *champ)
 {
-    int fd = open(file, O_RDONLY);
     int size = sizeof(header_t);
 
     if (fd == -1) {
@@ -42,46 +42,44 @@ int open_file(char *file, header_t *header)
     }
     if (read(fd, header, size) == -1) {
         my_putstr("Error: File is empty\n");
+        close(fd);
         return 84;
     }
-    header->prog_size = swap_endian(header->prog_size);
-    header->magic = swap_endian(header->magic);
-    close(fd);
+    champ->prog_size = swap_endian(header->prog_size);
+    champ->comment = my_strdup(header->comment);
+    champ->name = my_strdup(header->prog_name);
     return 0;
 }
 
-int get_instructions(char *file, corewar_t *corewar)
+static int get_data(int fd, header_t *header, champion_t *champ,
+    corewar_t *corewar)
 {
-    int fd = open(file, O_RDONLY);
-    int size = sizeof(header_t);
-    int prog_size = corewar->champs->prog_size;
-    int i = 0;
-
-    if (fd == -1)
+    if (read_header(fd, header, champ) == 84)
         return 84;
-    lseek(fd, size, SEEK_SET);
-    corewar->champs->instructs = malloc(sizeof(instruction_t) * prog_size);
-    if (corewar->champs->instructs == NULL)
+    if (get_instructions(fd, champ, corewar) == 84)
         return 84;
-    for (i = 0; i < prog_size; i++) {
-        read(fd, &corewar->champs->instructs[i].opcode, 1);
-        if (corewar->champs->instructs[i].opcode < 1
-            || corewar->champs->instructs[i].opcode > 16)
-            return 84;
-    }
     return 0;
 }
 
-int get_file_data(char *file, corewar_t *corewar)
+int get_file_data(corewar_t *corewar)
 {
     header_t header;
+    champion_t *champ = NULL;
+    int fd;
 
-    if (open_file(file, &header) == 84)
-        return 84;
-    corewar->champs->name = my_strdup(header.prog_name);
-    corewar->champs->comment = my_strdup(header.comment);
-    corewar->champs->prog_size = header.prog_size;
-    if (get_instructions(file, corewar) == 84)
-        return 84;
+    for (int i = 0; i < corewar->nb_champs; i++) {
+        fd = corewar->fd[i];
+        if (champ != NULL)
+            free_champion(champ);
+        champ = init_champion();
+        if (get_data(fd, &header, champ, corewar) != 0) {
+            free_champion(champ);
+            return 84;
+        }
+        if (add_champion(corewar, champ) != 0) {
+            free_champion(champ);
+            return 84;
+        }
+    }
     return 0;
 }
