@@ -36,7 +36,6 @@ typedef struct champion_s {
     char *name;
     char *comment;
     int prog_size;
-    unsigned char *prog;
     int pc;
     int reg[REG_NUMBER];
     int carry;
@@ -145,10 +144,10 @@ int check_arguments(instruction_t *instr);
 /**
  * @brief Open a file .cor read the header and
  * read the instructions
- * @param file char * with the path of the file
  * @param corewar  pointer to the corewar structure
- * @param i int with the index of the champion
  * @return
  */
-int get_file_data(char *file, corewar_t *corewar);
+int get_file_data(corewar_t *corewar);
+void get_coding_byte(char coding_byte, instruction_t *instr);
+void free_champion(champion_t *champion);
 #endif //COREWAR_COREWAR_H
