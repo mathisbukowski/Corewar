@@ -56,8 +56,6 @@ static int get_data(int fd, header_t *header, champion_t *champ,
 {
     if (read_header(fd, header, champ) == 84)
         return 84;
-    if (get_instructions(fd, champ, corewar) == 84)
-        return 84;
     return 0;
 }
 
