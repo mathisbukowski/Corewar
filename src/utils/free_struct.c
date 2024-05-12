@@ -9,6 +9,15 @@
 #include <unistd.h>
 #include "corewar.h"
 
+void free_champion(champion_t *champion)
+{
+    free(champion->infos);
+    free(champion->instructs);
+    free(champion->name);
+    free(champion->comment);
+    free(champion);
+}
+
 void free_champions(champion_t *champion)
 {
     champion_t *current = champion;
@@ -20,7 +29,6 @@ void free_champions(champion_t *champion)
         free(current->instructs);
         free(current->name);
         free(current->comment);
-        free(current->prog);
         free(current);
         current = next;
     }
