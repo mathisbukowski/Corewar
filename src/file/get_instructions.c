@@ -34,15 +34,51 @@ void print_instruction(int index, unsigned char opcode)
     current_op->mnemonique);
 }
 
+int calculate_instruction_length(unsigned char opcode)
+{
+    op_t *current_op = &op_tab[opcode - 1];
+    int instruction_length = 1; // 1 byte for the opcode
+
+    if (opcode < 1 || opcode > 16)
+        return -1;
+
+    for (int i = 0; i < current_op->nbr_args; i++) {
+        switch (current_op->type[i]) {
+            case T_REG:
+                instruction_length += 1; // 1 byte for a register argument
+                break;
+            case T_DIR:
+                instruction_length += DIR_SIZE; // DIR_SIZE bytes for a direct argument
+                break;
+            case T_IND:
+                instruction_length += IND_SIZE; // IND_SIZE bytes for an indirect argument
+                break;
+        }
+    }
+    return instruction_length;
+}
+
 static int get_infos(int fd, corewar_t *corewar, int *i)
 {
     unsigned char opcode;
+    int instruction_length;
 
     if (read_opcode(fd, &opcode) != 0) {
         close(fd);
         return 1;
     }
     print_instruction((*i), opcode);
+    instruction_length = calculate_instruction_length(opcode);
+    printf("opcode: %d\n", opcode);
+    printf("Instruction length: %d\n", instruction_length );
+    if (instruction_length == -1) {
+        printf("Error: Invalid opcode %d at instruction %d\n", opcode, *i);
+        return -1;
+    }
+    if (lseek(fd, instruction_length - 1, SEEK_CUR) == -1) {
+        printf("Error: Failed to skip over arguments for instruction %d\n", *i);
+        return -1;
+    }
     return 0;
 }
 
