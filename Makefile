@@ -11,6 +11,7 @@ SRC = src/main.c \
 		src/utils/init_struct.c \
 		src/utils/free_struct.c \
 		src/utils/check_dump.c \
+		src/utils/print_vm.c \
 		src/error/check_champions.c \
 		src/error/check_args.c \
 		src/instructions/load_inst.c \
