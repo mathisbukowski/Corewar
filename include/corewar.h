@@ -151,4 +151,6 @@ void print_vm(corewar_t *corewar);
 int has_coding_byte(unsigned char code);
 void get_coding_byte(unsigned char coding_byte, instruction_t *instr);
 int get_extension(char *av);
+int has_coding_byte(unsigned char code);
+void get_coding_byte(unsigned char coding_byte, instruction_t *instr);
 #endif //COREWAR_COREWAR_H
