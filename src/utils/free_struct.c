@@ -6,30 +6,23 @@
 */
 
 #include <stdlib.h>
-#include <unistd.h>
 #include "corewar.h"
 
 void free_champion(champion_t *champion)
 {
-    if (champion->infos)
-        free(champion->infos);
-    if (champion->instructs)
-        free(champion->instructs);
-    if (champion->name)
+    if (champion == NULL)
+        return;
+    free(champion->instructs);
+    if (champion->name != NULL)
         free(champion->name);
-    if (champion->comment)
+    if (champion->comment != NULL)
         free(champion->comment);
-    champion->infos = NULL;
-    champion->instructs = NULL;
-    champion->name = NULL;
-    champion->comment = NULL;
     free(champion);
-    champion = NULL;
 }
 
-void free_champions(champion_t *champion)
+void free_champions(champion_t *champions)
 {
-    champion_t *current = champion;
+    champion_t *current = champions;
     champion_t *next = NULL;
 
     while (current != NULL) {

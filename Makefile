@@ -34,7 +34,7 @@ LIB = -L./lib/my -lmy
 
 CFLAGS = -g -I./include -Wall -Wextra
 
-all : $(NAME)
+all : $(NAME) post_build_clean
 
 $(NAME) : $(OBJ)
 	gcc $(CFLAGS) $(SRC) -o $(NAME) $(LIB)
@@ -46,3 +46,6 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+post_build_clean:
+	rm -f $(OBJ)

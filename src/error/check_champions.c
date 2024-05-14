@@ -17,24 +17,6 @@
 #include "corewar.h"
 #include "my.h"
 
-int add_champion_to_list(champion_t **list)
-{
-    champion_t *new_champion = init_champion();
-    champion_t *current = NULL;
-
-    if (new_champion == NULL)
-        return 84;
-    if (*list == NULL) {
-        *list = new_champion;
-    } else {
-        current = *list;
-        while (current->next != NULL)
-            current = current->next;
-        current->next = new_champion;
-    }
-    return 0;
-}
-
 int set_champion_id(champion_t *champion, char const *id_str)
 {
     if (my_str_isnum(id_str) == 0) {
@@ -47,8 +29,6 @@ int set_champion_id(champion_t *champion, char const *id_str)
 
 int check_options_n(char **av, int i, corewar_t *corewar)
 {
-    if (add_champion_to_list(&(corewar->champs)) != 0)
-        return 84;
     if (av[i + 1] == NULL)
         return 84;
     if (set_champion_id(corewar->champs, av[i + 1]) == 0)
@@ -72,9 +52,6 @@ int check_champion(corewar_t *corewar, char **av)
             result = check_options_n(av, i, corewar);
             continue;
         }
-        result = add_champion_to_list(&(corewar->champs));
-        if (result != 0)
-            return 84;
         corewar->nb_champs++;
     }
     return 0;

@@ -38,10 +38,17 @@ champion_t *init_champion(void)
 
     if (champion == NULL)
         return NULL;
-    my_memset(champion, 0, sizeof(champion_t));
-    champion->infos = init_info_champ();
+    champion->id = 0;
+    champion->name = NULL;
+    champion->comment = NULL;
+    champion->prog_size = 0;
+    champion->pc = 0;
+    my_memset(champion->reg, 0, sizeof(champion->reg));
+    champion->carry = 0;
+    champion->live = 0;
+    champion->last_live = 0;
+    champion->infos = NULL;
     champion->instructs = NULL;
-    champion->next = NULL;
     return champion;
 }
 
@@ -70,7 +77,7 @@ corewar_t *init_corewar(char **av)
 
     if (corewar == NULL)
         return NULL;
-    corewar->dump = check_dump(corewar, av);
+    corewar->dump = 0;
     corewar->cycle = 0;
     corewar->fd = NULL;
     corewar->nb_champs = 0;
