@@ -36,6 +36,7 @@ CFLAGS = -g -I./include -Wall -Wextra
 all : $(NAME) post_build_clean
 
 $(NAME) : $(OBJ)
+	if [ ! -f "lib/my/libmy.a" ]; then make -C lib/my; fi
 	gcc $(CFLAGS) $(SRC) -o $(NAME) $(LIB)
 
 clean:
