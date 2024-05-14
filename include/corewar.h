@@ -11,13 +11,8 @@
     #include "my.h"
     #include "my_printf.h"
 
-typedef enum inst_code_s {
-    ADD, SUB, AND, OR, XOR, LD, ST, LDI,
-    STI, FORK, LFORK, ZJMP, LIVE, AFF
-} inst_code_t;
-
 typedef struct instruction_s {
-    inst_code_t opcode;
+    unsigned char opcode;
     int num_args;
     int args[3];
     char types[3];
@@ -148,8 +143,9 @@ int check_arguments(instruction_t *instr);
  * @return
  */
 int get_file_data(corewar_t *corewar);
-int get_instructions(int fd, champion_t *new, corewar_t *corewar);
-void get_coding_byte(char coding_byte, instruction_t *instr);
+int get_instructions(corewar_t *corewar, champion_t *champ);
 void free_champion(champion_t *champion);
 void print_vm(corewar_t *corewar);
+int has_coding_byte(unsigned char code);
+void get_coding_byte(unsigned char coding_byte, instruction_t *instr);
 #endif //COREWAR_COREWAR_H

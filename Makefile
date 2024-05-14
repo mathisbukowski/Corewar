@@ -23,7 +23,10 @@ SRC = src/main.c \
 		src/instructions/aff_inst.c \
 		src/champion/add_champion.c \
 		src/file/get_file_data.c \
-		src/file/get_coding_byte.c \
+		src/utils/get_coding_byte.c \
+		src/utils/has_coding_byte.c \
+		src/utils/has_idx.c \
+		src/utils/get_instructions.c \
 
 OBJ = $(SRC:.c=.o)
 
