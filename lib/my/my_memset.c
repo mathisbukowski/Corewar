@@ -9,12 +9,12 @@
 
 #include <stddef.h> // Pour size_t
 
-void *my_memset(void *ptr, int size, size_t n)
+void *my_memset(void *ptr, int value, size_t n)
 {
-    unsigned char *p = ptr;
-    unsigned char value = (unsigned char)size;
+    unsigned char *p = (unsigned char *)ptr;
+    unsigned char val = (unsigned char)value;
 
     for (size_t i = 0; i < n; i++)
-        p[i] = value;
+        p[i] = val;
     return ptr;
 }

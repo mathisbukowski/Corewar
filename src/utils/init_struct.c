@@ -38,10 +38,17 @@ champion_t *init_champion(void)
 
     if (champion == NULL)
         return NULL;
-    my_memset(champion, 0, sizeof(champion_t));
-    champion->infos = malloc(sizeof(info_champ_t));
-    champion->instructs = malloc(sizeof(instruction_t));
-    champion->next = NULL;
+    champion->id = 0;
+    champion->name = NULL;
+    champion->comment = NULL;
+    champion->prog_size = 0;
+    champion->pc = 0;
+    my_memset(champion->reg, 0, sizeof(champion->reg));
+    champion->carry = 0;
+    champion->live = 0;
+    champion->last_live = 0;
+    champion->infos = NULL;
+    champion->instructs = NULL;
     return champion;
 }
 
@@ -70,13 +77,13 @@ corewar_t *init_corewar(char **av)
 
     if (corewar == NULL)
         return NULL;
-    corewar->dump = check_dump(corewar, av);
+    corewar->dump = 0;
     corewar->cycle = 0;
-    corewar->nb_champs = check_args(av, corewar);
-    corewar->fd = malloc(corewar->nb_champs * sizeof(int));
+    corewar->fd = NULL;
+    corewar->nb_champs = 0;
     corewar->champs = NULL;
     corewar->arena = init_arena(CYCLE_TO_DIE);
-    if (corewar->arena == NULL || corewar->fd == NULL) {
+    if (corewar->arena == NULL) {
         free_corewar(corewar);
         return NULL;
     }
