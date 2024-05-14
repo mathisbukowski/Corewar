@@ -16,19 +16,12 @@
 void get_coding_byte(char coding_byte, instruction_t *instr)
 {
     u_int8_t type_bits;
-    char const type_map[4] = {0, 'r', 'd', 'i'};
+    char const type_map[4] = {0, T_REG, T_DIR, T_IND};
     int index;
 
     for (int i = 0; i < 3; i++) {
-        type_bits = (coding_byte << (2 * i)) & 0xC0;
-        index = type_bits >> 6;
+        type_bits = (coding_byte >> (6 - 2 * i)) & 0x03;
+        index = type_bits;
         instr->types[i] = type_map[index];
     }
-}
-
-int has_coding_byte(int mnemonic)
-{
-    if (mnemonic == 1 || mnemonic == 9 || mnemonic == 12 || mnemonic == 15)
-        return 1;
-    return 0;
 }
