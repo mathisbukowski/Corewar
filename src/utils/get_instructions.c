@@ -28,11 +28,12 @@ int get_instr_normal(corewar_t *corewar, champion_t *champ)
 
     if (code < 1 || code > 16)
         return 1;
-    get_coding_byte(corewar->arena->memory[(champ->pc + 1) % MEM_SIZE], &instruction);
+    get_coding_byte(corewar->arena->memory[(champ->pc + 1) % MEM_SIZE],
+    &instruction);
     ac = get_nbr_args(code, &instruction);
 }
 
 int get_instructions(corewar_t *corewar, champion_t *champ)
 {
-
+    return 0;
 }
