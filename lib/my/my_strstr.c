@@ -5,26 +5,28 @@
 ** Day 06 Task 05
 */
 
-char *tmp(char *str, char const *to_find, int i, int j)
+#include <stddef.h>
+
+char *tmp(char *str, const char *to_find, size_t i)
 {
-    if (str[i] == to_find[j]) {
-        j++;
-        if (to_find[j] == '\0')
-            return &str[i - j + 1];
-    } else
-        j = 0;
-    return 0;
+    size_t j;
+
+    for (j = 0; to_find[j] != '\0'; ++j) {
+        if (str[i + j] != to_find[j])
+            break;
+    }
+    if (!to_find[j])
+        return &str[i];
+    return NULL;
 }
 
-char *my_strstr(char *str, char const *to_find)
+char *my_strstr(char *str, const char *to_find)
 {
-    int i = 0;
-    int j = 0;
-
-    while (str[i] != '\0') {
-        if (tmp(str, to_find, i, j) != 0)
-            return tmp(str, to_find, i, j);
-        i++;
+    if (!*to_find)
+        return str;
+    for (size_t i = 0; str[i] != '\0'; ++i) {
+        if (str[i] == to_find[0] && tmp(str, to_find, i) != NULL)
+            return tmp(str, to_find, i);
     }
-    return 0;
+    return NULL;
 }
