@@ -12,7 +12,7 @@
     #include "my_printf.h"
 
 typedef struct instruction_s {
-    unsigned char opcode;
+    int opcode;
     int num_args;
     int args[3];
     char types[3];
@@ -148,9 +148,10 @@ int get_file_data(corewar_t *corewar);
 int get_instructions(corewar_t *corewar, champion_t *champ);
 void free_champion(champion_t *champion);
 void print_vm(corewar_t *corewar);
-int has_coding_byte(unsigned char code);
-void get_coding_byte(unsigned char coding_byte, instruction_t *instr);
+int has_coding_byte(int opcode);
 int get_extension(char *av);
-int has_coding_byte(unsigned char code);
-void get_coding_byte(unsigned char coding_byte, instruction_t *instr);
+void get_coding_byte(int coding_byte, instruction_t *instr);
+int get_register_argument(corewar_t *corewar, champion_t *champ);
+int get_indirect_argument(corewar_t *corewar, champion_t *champ);
+int get_direct_argument(corewar_t *corewar, champion_t *champ);
 #endif //COREWAR_COREWAR_H

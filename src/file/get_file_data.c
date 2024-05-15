@@ -97,6 +97,10 @@ static int get_op_index(int fd,
         free_champion(champ);
         return 84;
     }
+    if (get_instructions(corewar, champ) != 0) {
+        free_champion(champ);
+        return 84;
+    }
     if (add_champion(corewar, champ) != 0) {
         free_champion(champ);
         return 84;

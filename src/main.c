@@ -44,7 +44,7 @@ int main(int argc, char **argv)
         free_corewar(corewar);
         return 84;
     }
-    print_vm(corewar);
+//    print_vm(corewar);
     free_corewar(corewar);
     return 0;
 }
