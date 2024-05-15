@@ -35,7 +35,6 @@ int check_options_n(char **av, int i, corewar_t *corewar)
         i++;
     else
         return 84;
-    corewar->nb_champs++;
     return 0;
 }
 
@@ -44,7 +43,6 @@ int check_champion(corewar_t *corewar, char **av)
     int i = 1;
     int result = 0;
 
-    corewar->nb_champs = 0;
     for (; av[i]; i++) {
         if (result == 84)
             return 84;
@@ -52,7 +50,6 @@ int check_champion(corewar_t *corewar, char **av)
             result = check_options_n(av, i, corewar);
             continue;
         }
-        corewar->nb_champs++;
     }
     return 0;
 }
