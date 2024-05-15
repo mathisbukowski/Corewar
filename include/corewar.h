@@ -54,12 +54,14 @@ typedef struct corewar_s {
     int cycle;
     int nb_champs;
     int *fd;
+    int n_value[4];
+    char *champ_names[4];
     champion_t *champs;
 } corewar_t;
 
 void print_usage(void);
 corewar_t *init_corewar(char **av);
-champion_t *init_champion(void);
+champion_t *init_champ(corewar_t *corewar);
 void free_corewar(corewar_t *corewar);
 int check_args(char **av, corewar_t *corewar);
 int check_dump(corewar_t *corewar, char **av);
@@ -148,4 +150,5 @@ void free_champion(champion_t *champion);
 void print_vm(corewar_t *corewar);
 int has_coding_byte(unsigned char code);
 void get_coding_byte(unsigned char coding_byte, instruction_t *instr);
+int get_extension(char *av);
 #endif //COREWAR_COREWAR_H
