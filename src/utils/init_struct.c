@@ -8,7 +8,7 @@
 
 #include "corewar.h"
 
-instruction_t *init_instruction(void)
+/*instruction_t *init_instruction(void)
 {
     instruction_t *instruction = malloc(sizeof(instruction_t));
 
@@ -30,26 +30,49 @@ info_champ_t *init_info_champ(void)
         return NULL;
     my_memset(info_champ, 0, sizeof(info_champ_t));
     return info_champ;
+}*/
+
+void init_id(const corewar_t *corewar, champion_t *champ)
+{
+    for (int i = 0; i < corewar->nb_champs; i++) {
+        if (corewar->champ_names[i] != NULL &&
+            my_strcmp(corewar->champ_names[i], champ->name) == 0) {
+            champ->id = corewar->n_value[i];
+            break;
+        }
+    }
 }
 
-champion_t *init_champion(void)
+void get_champion_id(const corewar_t *corewar, champion_t *champ, int id)
 {
-    champion_t *champion = malloc(sizeof(champion_t));
+    if (corewar->champ_names[id] != NULL) {
+        champ->name = corewar->champ_names[id];
+        init_id(corewar, champ);
+    } else
+        champ->id = id;
+}
 
-    if (champion == NULL)
+champion_t *init_champ(corewar_t *corewar)
+{
+    champion_t *champ = malloc(sizeof(champion_t));
+    static int id = 0;
+
+    if (champ == NULL)
         return NULL;
-    champion->id = 0;
-    champion->name = NULL;
-    champion->comment = NULL;
-    champion->prog_size = 0;
-    champion->pc = 0;
-    my_memset(champion->reg, 0, sizeof(champion->reg));
-    champion->carry = 0;
-    champion->live = 0;
-    champion->last_live = 0;
-    champion->infos = NULL;
-    champion->instructs = NULL;
-    return champion;
+    champ->name = corewar->champ_names[id];
+    get_champion_id(corewar, champ, id);
+    id++;
+    champ->name = NULL;
+    champ->comment = NULL;
+    champ->prog_size = 0;
+    champ->pc = 0;
+    my_memset(champ->reg, 0, sizeof(champ->reg));
+    champ->carry = 0;
+    champ->live = 0;
+    champ->last_live = 0;
+    champ->infos = NULL;
+    champ->instructs = NULL;
+    return champ;
 }
 
 arena_t *init_arena(int cycle_to_die)
@@ -71,6 +94,14 @@ arena_t *init_arena(int cycle_to_die)
     return arena;
 }
 
+static void init_n_value_array(corewar_t *corewar)
+{
+    corewar->n_value[0] = 0;
+    corewar->n_value[1] = 0;
+    corewar->n_value[2] = 0;
+    corewar->n_value[3] = 0;
+}
+
 corewar_t *init_corewar(char **av)
 {
     corewar_t *corewar = malloc(sizeof(corewar_t));
@@ -81,7 +112,8 @@ corewar_t *init_corewar(char **av)
     corewar->cycle = 0;
     corewar->fd = NULL;
     corewar->nb_champs = 0;
-    corewar->champs = init_champion();
+    corewar->champs = NULL;
+    init_n_value_array(corewar);
     corewar->arena = init_arena(CYCLE_TO_DIE);
     if (corewar->arena == NULL) {
         free_corewar(corewar);
