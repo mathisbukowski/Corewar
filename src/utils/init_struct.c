@@ -81,7 +81,7 @@ corewar_t *init_corewar(char **av)
     corewar->cycle = 0;
     corewar->fd = NULL;
     corewar->nb_champs = 0;
-    corewar->champs = NULL;
+    corewar->champs = init_champion();
     corewar->arena = init_arena(CYCLE_TO_DIE);
     if (corewar->arena == NULL) {
         free_corewar(corewar);
