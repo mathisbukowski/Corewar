@@ -115,7 +115,7 @@ int get_file_data(corewar_t *corewar)
             free_champion(champ);
             champ = NULL;
         }
-        champ = init_champion();
+        champ = init_champ(corewar);
         if (champ == NULL)
             return 84;
         champ->pc = (i * MEM_SIZE) / corewar->nb_champs;
