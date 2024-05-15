@@ -12,7 +12,7 @@ int get_current_arg(char **av, int i, corewar_t *corewar)
 {
     if (my_strcmp(av[i], "-dump") == 0) {
         if (my_str_isnum(av[i + 1]) == 0) {
-            corewar->dump = my_getnbr(av[i + 1]);
+            corewar->dump = atoi(av[i + 1]);
             return 0;
         }
         return 84;
