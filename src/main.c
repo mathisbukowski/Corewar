@@ -10,6 +10,7 @@
 
 int parse_arguments(int argc, char **argv, corewar_t *corewar)
 {
+    (void)argc;
     corewar->nb_champs = check_args(argv, corewar);
     if (corewar->nb_champs < 1 || corewar->nb_champs > 4)
         return 84;
@@ -22,6 +23,7 @@ int parse_arguments(int argc, char **argv, corewar_t *corewar)
 
 int load_champions(corewar_t *corewar, char **argv)
 {
+    (void)argv;
     if (get_file_data(corewar) != 0)
         return 84;
     return 0;
@@ -44,7 +46,7 @@ int main(int argc, char **argv)
         free_corewar(corewar);
         return 84;
     }
-//    print_vm(corewar);
+    run_vm(corewar);
     free_corewar(corewar);
     return 0;
 }
