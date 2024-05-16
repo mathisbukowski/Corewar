@@ -146,6 +146,19 @@ int check_arguments(instruction_t *instr);
  * @return
  */
 int get_file_data(corewar_t *corewar);
+
+// Instructions
+
+int add_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
+int sub_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
+int aff_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
+int fork_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
+int lfork_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
+int zjmp_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
+int and_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
+int or_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
+int xor_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
+
 int get_instructions(corewar_t *corewar, champion_t *champ);
 void free_champion(champion_t *champion);
 void print_vm(corewar_t *corewar);
