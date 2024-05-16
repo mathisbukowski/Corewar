@@ -7,7 +7,7 @@
 
 #ifndef COREWAR_COREWAR_H
     #define COREWAR_COREWAR_H
-    #define NUMBER_OF_INSTRUCTIONS 18
+    #define NUMBER_OF_INSTRUCTIONS 17
     #include "op.h"
     #include "my.h"
     #include "my_printf.h"
