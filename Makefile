@@ -7,6 +7,7 @@
 
 SRC = src/main.c \
 		src/op.c \
+		src/run_vm.c \
 		src/utils/print_usage.c \
 		src/utils/init_struct.c \
 		src/utils/free_struct.c \
@@ -23,7 +24,13 @@ SRC = src/main.c \
 		src/instructions/aff_inst.c \
 		src/champion/add_champion.c \
 		src/file/get_file_data.c \
-		src/file/get_coding_byte.c \
+		src/utils/get_coding_byte.c \
+		src/utils/has_coding_byte.c \
+		src/utils/has_idx.c \
+		src/utils/get_instructions.c \
+		src/args/get_direct.c \
+		src/args/get_indirect.c \
+		src/args/get_register.c \
 
 OBJ = $(SRC:.c=.o)
 

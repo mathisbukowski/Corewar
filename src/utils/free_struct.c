@@ -41,5 +41,7 @@ void free_corewar(corewar_t *corewar)
         free(corewar->arena->memory);
         free(corewar->arena);
     }
+    if (corewar->champs)
+        free_champions(corewar->champs);
     free(corewar);
 }

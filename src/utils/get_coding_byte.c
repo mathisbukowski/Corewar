@@ -5,7 +5,6 @@
 ** get_coding_byte.C
 */
 
-
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -13,10 +12,10 @@
 #include "corewar.h"
 #include "op.h"
 
-void get_coding_byte(char coding_byte, instruction_t *instr)
+void get_coding_byte(int coding_byte, instruction_t *instr)
 {
     u_int8_t type_bits;
-    char const type_map[4] = {0, T_REG, T_DIR, T_IND};
+    char const type_map[4] = {0, 'r', 'd', 'i'};
     int index;
 
     for (int i = 0; i < 3; i++) {

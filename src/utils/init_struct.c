@@ -8,30 +8,6 @@
 
 #include "corewar.h"
 
-/*instruction_t *init_instruction(void)
-{
-    instruction_t *instruction = malloc(sizeof(instruction_t));
-
-    if (instruction == NULL)
-        return NULL;
-    my_memset(instruction, 0, sizeof(instruction_t));
-    for (int i = 0; i < 3; i++) {
-        instruction->args[i] = 0;
-        instruction->types[i] = 0;
-    }
-    return instruction;
-}
-
-info_champ_t *init_info_champ(void)
-{
-    info_champ_t *info_champ = malloc(sizeof(info_champ_t));
-
-    if (info_champ == NULL)
-        return NULL;
-    my_memset(info_champ, 0, sizeof(info_champ_t));
-    return info_champ;
-}*/
-
 void init_id(const corewar_t *corewar, champion_t *champ)
 {
     for (int i = 0; i < corewar->nb_champs; i++) {
@@ -66,6 +42,7 @@ champion_t *init_champ(corewar_t *corewar)
     champ->comment = NULL;
     champ->prog_size = 0;
     champ->pc = 0;
+    champ->start_pc = 0;
     my_memset(champ->reg, 0, sizeof(champ->reg));
     champ->carry = 0;
     champ->live = 0;
@@ -106,13 +83,15 @@ corewar_t *init_corewar(char **av)
 {
     corewar_t *corewar = malloc(sizeof(corewar_t));
 
+    (void)av;
     if (corewar == NULL)
         return NULL;
-    corewar->dump = 0;
+    corewar->dump = 200;
     corewar->cycle = 0;
     corewar->fd = NULL;
     corewar->nb_champs = 0;
     corewar->champs = NULL;
+    my_memset(corewar->champ_names, 0, sizeof(corewar->champ_names));
     init_n_value_array(corewar);
     corewar->arena = init_arena(CYCLE_TO_DIE);
     if (corewar->arena == NULL) {
