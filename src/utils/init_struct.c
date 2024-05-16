@@ -28,16 +28,8 @@ void get_champion_id(const corewar_t *corewar, champion_t *champ, int id)
         champ->id = id;
 }
 
-champion_t *init_champ(corewar_t *corewar)
+static void init_indicators(champion_t *champ)
 {
-    champion_t *champ = malloc(sizeof(champion_t));
-    static int id = 0;
-
-    if (champ == NULL)
-        return NULL;
-    champ->name = corewar->champ_names[id];
-    get_champion_id(corewar, champ, id);
-    id++;
     champ->name = NULL;
     champ->comment = NULL;
     champ->prog_size = 0;
@@ -50,6 +42,19 @@ champion_t *init_champ(corewar_t *corewar)
     champ->cycle = 0;
     champ->cycle_to_wait = -1;
     champ->instruct = NULL;
+}
+
+champion_t *init_champ(corewar_t *corewar)
+{
+    champion_t *champ = malloc(sizeof(champion_t));
+    static int id = 0;
+
+    if (champ == NULL)
+        return NULL;
+    champ->name = corewar->champ_names[id];
+    get_champion_id(corewar, champ, id);
+    id++;
+    init_indicators(champ);
     return champ;
 }
 

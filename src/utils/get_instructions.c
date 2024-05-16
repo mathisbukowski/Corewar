@@ -82,6 +82,7 @@ int get_instructions(corewar_t *corewar, champion_t *champ)
     if (champ->instruct != NULL)
         free(champ->instruct);
     champ->instruct = malloc(sizeof(instruction_t));
+    my_memset(champ->instruct, 0, (sizeof(instruction_t)));
     code = (int)corewar->arena->memory[(champ->pc) % MEM_SIZE];
     if (!has_coding_byte(code))
         size += get_instr_normal(corewar, champ, code);

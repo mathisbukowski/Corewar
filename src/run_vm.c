@@ -36,6 +36,6 @@ int run_vm(corewar_t *corewar)
 {
     for (; corewar->dump > 0; corewar->dump--)
         run_champions(corewar);
-//    print_vm(corewar);
+    print_vm(corewar);
     return 0;
 }
