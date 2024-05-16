@@ -97,10 +97,6 @@ static int get_op_index(int fd,
         free_champion(champ);
         return 84;
     }
-    if (get_instructions(corewar, champ) != 0) {
-        free_champion(champ);
-        return 84;
-    }
     if (add_champion(corewar, champ) != 0) {
         free_champion(champ);
         return 84;
@@ -115,18 +111,13 @@ int get_file_data(corewar_t *corewar)
 
     for (int i = 0; i < corewar->nb_champs; i++) {
         fd = corewar->fd[i];
-        if (champ != NULL) {
-            free_champion(champ);
-            champ = NULL;
-        }
         champ = init_champ(corewar);
         if (champ == NULL)
             return 84;
         champ->pc = (i * MEM_SIZE) / corewar->nb_champs;
+        champ->start_pc = champ->pc;
         if (get_op_index(fd, champ, corewar) != 0)
             return 84;
     }
-    if (champ != NULL)
-        free_champion(champ);
     return 0;
 }
