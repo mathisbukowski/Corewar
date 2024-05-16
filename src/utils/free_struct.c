@@ -12,7 +12,7 @@ void free_champion(champion_t *champion)
 {
     if (champion == NULL)
         return;
-    free(champion->instructs);
+    free(champion->instruct);
     if (champion->name != NULL)
         free(champion->name);
     if (champion->comment != NULL)

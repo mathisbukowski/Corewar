@@ -45,10 +45,11 @@ champion_t *init_champ(corewar_t *corewar)
     champ->start_pc = 0;
     my_memset(champ->reg, 0, sizeof(champ->reg));
     champ->carry = 0;
-    champ->live = 0;
+    champ->is_alive = 0;
     champ->last_live = 0;
-    champ->infos = NULL;
-    champ->instructs = NULL;
+    champ->cycle = 0;
+    champ->cycle_to_wait = -1;
+    champ->instruct = NULL;
     return champ;
 }
 

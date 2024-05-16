@@ -20,8 +20,10 @@ SRC = src/main.c \
 		src/instructions/fork_inst.c \
 		src/instructions/add_inst.c \
 		src/instructions/logical_inst.c \
+		src/instructions/live_inst.c \
 		src/instructions/check_arguments.c \
 		src/instructions/aff_inst.c \
+		src/instructions/exec_instructions.c \
 		src/instructions/array_function.c \
 		src/champion/add_champion.c \
 		src/file/get_file_data.c \
