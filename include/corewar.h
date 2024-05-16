@@ -152,9 +152,15 @@ void print_vm(corewar_t *corewar);
 int has_coding_byte(int opcode);
 int get_extension(char *av);
 void get_coding_byte(int coding_byte, instruction_t *instr);
-int get_register_argument(corewar_t *corewar, champion_t *champ);
-int get_indirect_argument(corewar_t *corewar, champion_t *champ);
-int get_direct_argument(corewar_t *corewar, champion_t *champ);
 int has_idx(unsigned char code, int ac);
 int run_vm(corewar_t *corewar);
+
+int get_direct_argument(corewar_t *corewar, int pc, int size);
+int get_indirect_argument(corewar_t *corewar, int pc);
+int get_register_argument(corewar_t *corewar, int pc);
+int get_arg_size(int code, int i, char types[3]);
+void decode_no_coding_byte(corewar_t *corewar, champion_t *champ,
+    instruction_t *instr, int nb);
+void decode_arguments(corewar_t *corewar, champion_t *champ,
+    instruction_t *instr, int nb);
 #endif //COREWAR_COREWAR_H
