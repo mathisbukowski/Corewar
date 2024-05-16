@@ -12,50 +12,48 @@
 #include "corewar.h"
 #include "op.h"
 
-static int get_nbr_args(unsigned char opcode, instruction_t *instr)
+static int get_nbr_args(int opcode, instruction_t *instr)
 {
     int i;
 
     for (i = 0; instr->types[i] != '\0' && i < 3; i++);
-    return 1;
+    return i;
+}
+
+int get_arg_size(int code, int i, char types[3])
+{
+    if (types[i] == 'r')
+        return 1;
+    if (types[i] == 'i')
+        return IND_SIZE;
+    if (has_idx(code, i + 1))
+        return IND_SIZE;
+    return DIR_SIZE;
 }
 
 int get_instr_normal(corewar_t *corewar, champion_t *champ, int code)
 {
     int coding_byte = (int)corewar->arena->memory[(champ->pc + 1) % MEM_SIZE];
-    int ac;
     instruction_t instruction = {.opcode = code};
-    int size = 1;
+    int size = 2;
 
     if (code < 1 || code > 16)
         return 1;
     get_coding_byte(coding_byte, &instruction);
-    for (int i = 0; i < 3; i++) {
-        if (instruction.types[i] == T_REG) {
-            printf("REG\n");
-//            instruction.args[i] = get_register_argument(corewar, champ);
-            size += 1;
-        }
-        else if (instruction.types[i] == T_DIR) {
-            printf("DIR\n");
-//            instruction.args[i] = get_direct_argument(corewar, champ);
-            size += 2;
-        }
-        else if (instruction.types[i] == T_IND) {
-            printf("IND\n");
-//            instruction.args[i] = get_indirect_argument(corewar, champ);
-            size += 2;
-        }
-        else
-            instruction.args[i] = 0;
+    instruction.num_args = get_nbr_args(code, &instruction);
+    printf("AC %d", instruction.num_args);
+    printf("OPCODE: %d\n", instruction.opcode);
+    printf("TYPES: ");
+    for (int i = 0; i < instruction.num_args; i++) {
+        printf("%c ", instruction.types[i]);
     }
-    printf("OPCODE %d\n", instruction.opcode);
+    printf("\n");
 
-//    for (int i = 0; i < 3; i++) {
-//        printf("ARG %d: %d\n", i+1, instruction.args[i]);
-//    }
+    for (int i = 0; i < instruction.num_args; i++)
+        size += get_arg_size(code, i, instruction.types);
 
     printf("SIZE: %d\n", size);
+    printf("\n");
     return size;
 }
 
@@ -74,45 +72,35 @@ int get_no_coding_byte_instruction(corewar_t *corewar, champion_t *champion, int
     if (!op)
         return size;
     instruction.opcode = op->code;
-    for (int i = 0; i < op->nbr_args; i++)
+    for (int i = 0; i <= op->nbr_args; i++)
         instruction.types[i] = op->type[i];
+    printf("OPCODE: %d\n", instruction.opcode);
+    printf("TYPES: ");
+    for (int i = 0; i <= op->nbr_args; i++) {
+        printf("%c ", instruction.types[i]);
+    }
+    printf("\n");
     for (int i = 0; i < op->nbr_args; i++) {
-        if (op->type[i] == T_DIR) {
-            instruction.args[i] = get_direct_argument(corewar, champion);
-            size += 4;
-        } else if (op->type[i] == T_IND) {
-            instruction.args[i] = get_indirect_argument(corewar, champion);
-            size += 2;
-        } else if (op->type[i] == T_REG) {
-            instruction.args[i] = get_register_argument(corewar, champion);
-            size += 1;
-        }
+        size += get_arg_size(code, i, instruction.types);
     }
-    printf("OPCODE NON CODING BYTE%d\n", instruction.opcode);
-    for (int i = 0; i < 3; i++) {
-        printf("ARG %d: %d\n", i+1, instruction.args[i]);
-    }
+    printf("SIZE: %d\n", size);
+    printf("\n");
     return size;
 }
 
 int get_instructions(corewar_t *corewar, champion_t *champ)
 {
     int code;
-    int size = 1;
+    int size = 0;
 
-    //print_vm(corewar);
-    while (champ->pc < MEM_SIZE) {
-        if (champ->pc > 50)
-            return 0;
-        printf("ENDROIT BOUCLE %x \n", corewar->arena->memory[(champ->pc) % MEM_SIZE]);
-        code = (int)corewar->arena->memory[(champ->pc) % MEM_SIZE];
-        if (!has_coding_byte(code)) {
-            size += get_instr_normal(corewar, champ, code);
-        } else {
-            size += get_no_coding_byte_instruction(corewar, champ, code);
-        }
-        champ->pc += size;
-        size = 1;
+    printf("NAME CHAMP : %s", champ->name);
+    code = (int)corewar->arena->memory[(champ->pc) % MEM_SIZE];
+    if (!has_coding_byte(code)) {
+        size += get_instr_normal(corewar, champ, code);
+    } else {
+        size += get_no_coding_byte_instruction(corewar, champ, code);
     }
+    champ->pc += size;
+    size = 0;
     return 0;
 }
