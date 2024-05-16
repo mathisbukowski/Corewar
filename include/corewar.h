@@ -18,14 +18,7 @@ typedef struct instruction_s {
     int args[3];
     char types[3];
     int encoding_byte;
-    int cycles_to_wait;
 } instruction_t;
-
-typedef struct info_champ_s {
-    int nb_is_impose;
-    int adress;
-    int adress_impose;
-} info_champ_t;
 
 typedef struct champion_s {
     int id;
@@ -36,10 +29,11 @@ typedef struct champion_s {
     int start_pc;
     int reg[REG_NUMBER];
     int carry;
-    int live;
+    int is_alive;
     int last_live;
-    info_champ_t *infos;
-    instruction_t *instructs;
+    int cycle;
+    int cycle_to_wait;
+    instruction_t *instruct;
     struct champion_s *next;
 } champion_t;
 
@@ -60,6 +54,9 @@ typedef struct corewar_s {
     char *champ_names[4];
     champion_t *champs;
 } corewar_t;
+
+extern int (* const run_commands[NUMBER_OF_INSTRUCTIONS])(instruction_t *,
+    champion_t *, corewar_t *);
 
 void print_usage(void);
 corewar_t *init_corewar(char **av);
@@ -159,6 +156,7 @@ int zjmp_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
 int and_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
 int or_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
 int xor_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
+int live_command(instruction_t *instr, champion_t *champ, corewar_t *corewar);
 
 int get_instructions(corewar_t *corewar, champion_t *champ);
 void free_champion(champion_t *champion);
@@ -177,4 +175,5 @@ void decode_no_coding_byte(corewar_t *corewar, champion_t *champ,
     instruction_t *instr, int nb);
 void decode_arguments(corewar_t *corewar, champion_t *champ,
     instruction_t *instr, int nb);
+void execute_instructions(corewar_t *corewar, champion_t *champ);
 #endif //COREWAR_COREWAR_H
