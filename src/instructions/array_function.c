@@ -7,10 +7,8 @@
 
 #include "corewar.h"
 
-typedef int (*array_function_t)(instruction_t *instr, champion_t *champ,
-    corewar_t *corewar);
-
-array_function_t instruction_functions[] = {
+ int (* const run_commands[NUMBER_OF_INSTRUCTIONS])(instruction_t *instr, champion_t *champ,
+    corewar_t *corewar) = {
         NULL,
         &live_command,
         &ld_command,
@@ -28,4 +26,24 @@ array_function_t instruction_functions[] = {
         &lldi_command,
         &lfork_command,
         &aff_command,
+};
+
+ int const command_number[NUMBER_OF_INSTRUCTIONS] = {
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
 };
