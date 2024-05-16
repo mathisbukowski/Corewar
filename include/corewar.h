@@ -32,6 +32,7 @@ typedef struct champion_s {
     char *comment;
     int prog_size;
     int pc;
+    int start_pc;
     int reg[REG_NUMBER];
     int carry;
     int live;
@@ -154,4 +155,6 @@ void get_coding_byte(int coding_byte, instruction_t *instr);
 int get_register_argument(corewar_t *corewar, champion_t *champ);
 int get_indirect_argument(corewar_t *corewar, champion_t *champ);
 int get_direct_argument(corewar_t *corewar, champion_t *champ);
+int has_idx(unsigned char code, int ac);
+int run_vm(corewar_t *corewar);
 #endif //COREWAR_COREWAR_H
