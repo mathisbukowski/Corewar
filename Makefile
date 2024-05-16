@@ -28,9 +28,10 @@ SRC = src/main.c \
 		src/utils/has_coding_byte.c \
 		src/utils/has_idx.c \
 		src/utils/get_instructions.c \
-		src/args/get_direct.c \
-		src/args/get_indirect.c \
-		src/args/get_register.c \
+		src/args/get_direct_args.c \
+		src/args/get_indirect_args.c \
+		src/args/get_register_args.c \
+		src/utils/decode_instructions.c \
 
 OBJ = $(SRC:.c=.o)
 
