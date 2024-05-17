@@ -17,5 +17,10 @@ int get_direct_argument(corewar_t *corewar, int pc, int size)
         byte = (unsigned char)corewar->arena->memory[(pc + i) % MEM_SIZE];
         arg = (arg << 8) | byte;
     }
+    if (size == 2) {
+        if (arg & 0x8000)
+            arg |= 0xFFFF0000;
+    } else if (size == 4) {
+    }
     return arg;
 }

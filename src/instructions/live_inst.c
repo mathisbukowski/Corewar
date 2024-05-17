@@ -15,6 +15,7 @@ int live_command(instruction_t *instr, champion_t *champ, corewar_t *corewar)
     while (curr != NULL) {
         if (curr->is_alive == 0) {
             my_printf("This player %d (%s) is alive.\n", curr->id, curr->name);
+            corewar->arena->last_live = curr->id;
         }
         curr = curr->next;
     }

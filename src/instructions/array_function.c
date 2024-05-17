@@ -7,7 +7,7 @@
 
 #include "corewar.h"
 
-int (* const run_commands[NUMBER_OF_INSTRUCTIONS])(instruction_t *,
+int (* const run_commands[])(instruction_t *,
     champion_t *, corewar_t *) = {
     NULL,
     &live_command,

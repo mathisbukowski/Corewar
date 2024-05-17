@@ -41,7 +41,7 @@ NAME = corewar
 
 LIB = -L./lib/my -lmy
 
-CFLAGS = -g -I./include -Wall -Wextra
+CFLAGS = -I./include -Wall -Wextra
 
 all : $(NAME) post_build_clean
 

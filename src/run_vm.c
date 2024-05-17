@@ -20,9 +20,13 @@ void execute_instructions(corewar_t *corewar, champion_t *champ)
     champ->cycle_to_wait = -1;
     champ->cycle = 0;
     champ->pc = (champ->pc + champ->instruct->encoding_byte) % MEM_SIZE;
+    if (champ->instruct) {
+        free(champ->instruct);
+        champ->instruct = NULL;
+    }
 }
 
-int run_champions(corewar_t *corewar)
+void run_champions(corewar_t *corewar)
 {
     champion_t *curr = corewar->champs;
 
@@ -37,13 +41,20 @@ int run_champions(corewar_t *corewar)
             execute_instructions(corewar, curr);
         curr = curr->next;
     }
-    return 0;
+}
+
+void win_condition(corewar_t *corewar)
+{
+    printf("The player %d has won.\n", corewar->arena->last_live);
 }
 
 int run_vm(corewar_t *corewar)
 {
+    if (corewar->dump == 0)
+        corewar->dump = CYCLE_TO_DIE;
     for (; corewar->dump > 0; corewar->dump--)
         run_champions(corewar);
+    win_condition(corewar);
     print_vm(corewar);
     return 0;
 }

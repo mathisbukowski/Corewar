@@ -55,7 +55,7 @@ typedef struct corewar_s {
     champion_t *champs;
 } corewar_t;
 
-extern int (* const run_commands[NUMBER_OF_INSTRUCTIONS])(instruction_t *,
+extern int (* const run_commands[])(instruction_t *,
     champion_t *, corewar_t *);
 
 void print_usage(void);
@@ -176,4 +176,5 @@ void decode_no_coding_byte(corewar_t *corewar, champion_t *champ,
 void decode_arguments(corewar_t *corewar, champion_t *champ,
     instruction_t *instr, int nb);
 void execute_instructions(corewar_t *corewar, champion_t *champ);
+int swap_endian(int value);
 #endif //COREWAR_COREWAR_H

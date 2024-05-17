@@ -10,13 +10,14 @@
 
 void free_champion(champion_t *champion)
 {
-    if (champion == NULL)
-        return;
-    free(champion->instruct);
-    if (champion->name != NULL)
+    if (champion->name != NULL) {
         free(champion->name);
-    if (champion->comment != NULL)
+        champion->name = NULL;
+    }
+    if (champion->comment != NULL) {
         free(champion->comment);
+        champion->comment = NULL;
+    }
     free(champion);
 }
 
@@ -41,7 +42,6 @@ void free_corewar(corewar_t *corewar)
         free(corewar->arena->memory);
         free(corewar->arena);
     }
-    if (corewar->champs)
-        free_champions(corewar->champs);
+    free_champions(corewar->champs);
     free(corewar);
 }

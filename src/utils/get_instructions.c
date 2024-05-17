@@ -65,11 +65,13 @@ int get_no_coding_byte_instruction(corewar_t *corewar, champion_t *champion,
     if (!op)
         return size;
     champion->instruct->opcode = op->code;
-    for (int i = 0; i < op->nbr_args; i++)
+    champion->instruct->num_args = op->nbr_args;
+    for (int i = 0; i < champion->instruct->num_args; i++)
         champion->instruct->types[i] = 'd';
     champion->cycle_to_wait = op->nbr_cycles;
-    decode_no_coding_byte(corewar, champion, champion->instruct, op->nbr_args);
-    for (int i = 0; i < op->nbr_args; i++)
+    decode_no_coding_byte(corewar, champion, champion->instruct,
+    champion->instruct->num_args);
+    for (int i = 0; i < champion->instruct->num_args; i++)
         size += get_arg_size(code, i, champion->instruct->types);
     return size;
 }
@@ -79,8 +81,6 @@ int get_instructions(corewar_t *corewar, champion_t *champ)
     int code;
     int size = 0;
 
-    if (champ->instruct != NULL)
-        free(champ->instruct);
     champ->instruct = malloc(sizeof(instruction_t));
     my_memset(champ->instruct, 0, (sizeof(instruction_t)));
     code = (int)corewar->arena->memory[(champ->pc) % MEM_SIZE];
