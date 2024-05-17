@@ -14,6 +14,14 @@ int reset_pos_champ(champion_t *champion)
     return 0;
 }
 
+void execute_instructions(corewar_t *corewar, champion_t *champ)
+{
+    run_commands[champ->instruct->opcode](champ->instruct, champ, corewar);
+    champ->cycle_to_wait = -1;
+    champ->cycle = 0;
+    champ->pc = (champ->pc + champ->instruct->encoding_byte) % MEM_SIZE;
+}
+
 int run_champions(corewar_t *corewar)
 {
     champion_t *curr = corewar->champs;
