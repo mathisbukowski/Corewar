@@ -8,15 +8,6 @@
 #include "corewar.h"
 #include "my.h"
 
-#include "corewar.h"
-#include "my.h"
-
-#include "corewar.h"
-#include "my.h"
-
-#include "corewar.h"
-#include "my.h"
-
 int set_champion_id(corewar_t *corewar, char **av, int i, int j)
 {
     if (my_str_isnum(av[i + 1]) == 0) {
