@@ -24,8 +24,10 @@ int parse_arguments(int argc, char **argv, corewar_t *corewar)
 int load_champions(corewar_t *corewar, char **argv)
 {
     (void)argv;
-    if (get_file_data(corewar) != 0)
+    if (get_file_data(corewar) != 0) {
+        my_putstr("Invalid number of champs (min 2, max 4).");
         return 84;
+    }
     return 0;
 }
 

@@ -107,6 +107,8 @@ int get_file_data(corewar_t *corewar)
     champion_t *champ = NULL;
     int fd;
 
+    if (corewar->nb_champs < 2)
+        return 84;
     for (int i = 0; i < corewar->nb_champs; i++) {
         fd = corewar->fd[i];
         champ = init_champ(corewar);
