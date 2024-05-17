@@ -59,6 +59,3 @@ re: fclean all
 
 post_build_clean:
 	rm -f $(OBJ)
-
-documentation:
-	doxygen
