@@ -25,10 +25,6 @@ Corewar is a programming game where players write warriors in assembly language 
 
 ## Usage
 
-- **Assembler:** Converts `.s` files to `.cor` files.
-```sh
-    ./asm champion.s
-```
 - **Virtual Machine:** Executes the battle between champions. (2 --> 4)
 ```sh
     ./corewar champ1.cor champ2.cor
